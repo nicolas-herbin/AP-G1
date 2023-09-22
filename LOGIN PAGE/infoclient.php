@@ -19,11 +19,11 @@ if($_SESSION['username'] !== ""){
 }
 // connexion à la base de données
 $db_username = 'root';
-$db_password = 'root';
-$db_name = 'LPFS';
-$db_host = 'localhost:8889';
-$db = mysqli_connect($db_host, $db_username, $db_password,$db_name)
-    or die('could not connect to database');
+      $db_password = '';
+      $db_name = 'LPFS';
+      $db_host = 'localhost:3306';
+      $db = mysqli_connect($db_host, $db_username, $db_password,$db_name)
+      or die('could not connect to database');
 
 // Requête SQL pour récupérer les données des patients
 $sql = "SELECT * FROM couverture_social";
@@ -40,7 +40,7 @@ if(!empty($_POST)){
     mysqli_query($db, $query);
 
     // Rediriger vers infoclient.php après avoir soumis le formulaire
-    echo '<script>window.location.href = "infoclient.php";</script>';
+    echo '<script>window.location.href = "../hospitalisation.php";</script>';
     exit(); // Assure que la redirection se produit immédiatement
 }
 ?>
