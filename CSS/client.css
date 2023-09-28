@@ -20,7 +20,7 @@ h1{
 
 .card {
   width: 1150px;
-  height: 800px;
+  height: 1000px;
   margin-top: 70px;
   margin-bottom: 70px;
   margin-left: 160px;
@@ -38,7 +38,7 @@ h1{
 .leftside {
   background: #8eb2ea;
   width: 1150px;
-  height: 800px;
+  height: 1000px;
   align-items: center;
   justify-content: center;
   border-top-left-radius: 1.5rem;
@@ -46,13 +46,12 @@ h1{
 }
 
 img{
-  margin-top: 160px;
+  margin-top: 250px;
   margin-left: 45px;
 }
 
 .rightside {
   background-color: #ffffff;
-  
   width: 1150px;
   border-bottom-right-radius: 1.5rem;
   border-top-right-radius: 1.5rem;

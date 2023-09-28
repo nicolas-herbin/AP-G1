@@ -20,9 +20,9 @@
 
  // connexion à la base de données
     $db_username = 'root';
-    $db_password = 'root';
+    $db_password = '';
     $db_name = 'LPFS';
-    $db_host = 'localhost:8889';
+    $db_host = 'localhost:3306';
     $db = mysqli_connect($db_host, $db_username, $db_password,$db_name)
     or die('could not connect to database');
     

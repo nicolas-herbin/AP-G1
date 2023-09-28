@@ -2,7 +2,7 @@
 <head>
     <meta charset="utf-8">
     <!-- importer le fichier de style -->
-    <link href="client.css" rel="stylesheet" />
+    <link href="../CSS/client.css" rel="stylesheet" />
 </head>
 <body>
 <div id="content">
@@ -12,14 +12,13 @@
     if($_SESSION['username'] !== ""){
         $user = $_SESSION['username'];
     }
-      // connexion à la base de données
-      $db_username = 'root';
-      $db_password = '';
-      $db_name = 'LPFS';
-      $db_host = 'localhost:3306';
-      $db = mysqli_connect($db_host, $db_username, $db_password,$db_name)
-      or die('could not connect to database');
- 
+    // connexion à la base de données
+    $db_username = 'root';
+    $db_password = '';
+    $db_name = 'LPFS';
+    $db_host = 'localhost:3306';
+    $db = mysqli_connect($db_host, $db_username, $db_password,$db_name)
+        or die('could not connect to database');
 
     // Requête SQL pour récupérer les données des patients
     $sql = "SELECT * FROM patient";

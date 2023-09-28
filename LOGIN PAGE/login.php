@@ -28,11 +28,10 @@
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
   <link rel="icon" type="image/png" sizes="32x32" href="https://ibb.co/XYBMjYG">
-  <link href="style.css" rel="stylesheet" />
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <link href="../CSS/login.css" rel="stylesheet" />
 </head>
 
-<body >
+<body>
   <div class="mainscreen">
     <div class="card">
 
@@ -44,24 +43,24 @@
 
 
     <div class="rightside">
-    <form action="verification.php" method="POST">
-        <h1>Se Connecter</h1>      
-        <div class="login-box">
-            <div class="email">
+      <form action="verification.php" method="POST">
+            <h1>Se Connecter</h1> 
+           <div class="login-box">
+              <div class="email">
                 <label for="email"></label>
                 <div class="sec-2">
-                    <ion-icon name="at-circle-outline"></ion-icon>
-                    <input type="email" name="username" placeholder="Email"/>
+                  <ion-icon name="at-circle-outline"></ion-icon>
+                 <input type="email" name="username" placeholder="    Email"/>
                 </div>
-            </div>
-            <div class="password">
-                <label for="password"></label>
-                <div class="sec-2">
-                    <ion-icon name="lock-closed-outline"></ion-icon>
-                    <input class="pas" type="password" name="password" placeholder="Votre Mot De Passe"/>
+             </div>
+              <div class="password">
+               <label for="password"></label>
+               <div class="sec-2">
+                 <ion-icon name="lock-closed-outline"></ion-icon>
+                 <input class="pas" type="password" name="password" placeholder="    Votre Mot De Passe"/>
                 </div>
-            </div>
-            <input type="hidden" name="serverCaptcha" value="<?php echo $serverGeneratedCaptcha; ?>">
+              </div>
+              <input type="hidden" name="serverCaptcha" value="<?php echo $serverGeneratedCaptcha; ?>">
             <!-- End server-generated CAPTCHA -->
 
             <!-- Text-based CAPTCHA -->
@@ -73,9 +72,10 @@
             </div>
 
             <button type="submit" id='connec' class="button">Connexion</button>
-        </div>
-    </form>
-    <script>
+            </div>
+        
+      </form>
+      <script>
       // Function to display the generated CAPTCHA
       function generateCaptcha() {
           const captcha = document.querySelector('input[name="serverCaptcha"]').value;
@@ -88,7 +88,6 @@
           generateCaptcha();
       };
     </script>
-
     </div>
 
   </div>

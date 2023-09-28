@@ -7,7 +7,7 @@
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
   <link rel="icon" type="image/png" sizes="32x32" href="https://ibb.co/XYBMjYG">
-  <link href="principale.css" rel="stylesheet" />
+  <link href="../CSS/infoclient.css" rel="stylesheet" />
 </head>
  <body>
  <div id="content">
@@ -19,11 +19,11 @@ if($_SESSION['username'] !== ""){
 }
 // connexion à la base de données
 $db_username = 'root';
-      $db_password = '';
-      $db_name = 'LPFS';
-      $db_host = 'localhost:3306';
-      $db = mysqli_connect($db_host, $db_username, $db_password,$db_name)
-      or die('could not connect to database');
+$db_password = '';
+$db_name = 'LPFS';
+$db_host = 'localhost:3306';
+$db = mysqli_connect($db_host, $db_username, $db_password,$db_name)
+    or die('could not connect to database');
 
 // Requête SQL pour récupérer les données des patients
 $sql = "SELECT * FROM couverture_social";
@@ -39,8 +39,8 @@ if(!empty($_POST)){
     $query = "INSERT INTO `couverture_social`(`Num_secu`, `Assure`, `ALD`, `Nom_secu`, `Nom_mutuelle`, `Num_adherent`) VALUES ('$num_secu','$assure_value','$ald_value','$nom_secu','$nom_mutuelle','$num_adherent')";
     mysqli_query($db, $query);
 
-    // Rediriger vers infoclient.php après avoir soumis le formulaire
-    echo '<script>window.location.href = "../hospitalisation.php";</script>';
+    // Rediriger vers hospitalisation.php après avoir soumis le formulaire
+    echo '<script>window.location.href = "hospitalisation.php";</script>';
     exit(); // Assure que la redirection se produit immédiatement
 }
 ?>
