@@ -1,0 +1,64 @@
+/* NAV BAR */
+
+nav {
+    padding: 10px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+}
+
+.left-text {
+    margin-left: 90px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 35px;
+    font-weight: bold;
+    color: black;
+}
+
+.right-text {
+    margin-right: 70px;
+}
+
+.right-text a{
+    color: black;
+    font-family: 'Noto Sans Linear B', sans-serif;
+    font-size: 15px;
+}
+
+.right-text a:hover{
+    text-decoration: underline;
+}
+
+nav a {
+    text-decoration: none;
+    margin: 0 10px;
+    color: red;
+}
+
+/* Styles pour les liens dans la barre de navigation */
+nav .right-text a {
+    display: inline-block;
+    padding: 10px 20px; /* Ajustez les marges en fonction de votre préférence */
+    background-color: red;
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Styles pour les liens au survol */
+nav .right-text a:hover {
+    background-color: white;
+    color: black;
+}
+
+/* Style pour le contenu centré */
+.center-content {
+    text-align: center;
+}
+.center-content img {
+    width: 85%; /* La largeur de l'image ne dépasse pas la largeur du conteneur parent */
+    height: auto;
+}
+
