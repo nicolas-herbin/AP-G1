@@ -3,7 +3,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <title>LOGIN PAGE LPF</title>
+  <title>Information Patient</title>
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
   <link rel="icon" type="image/png" sizes="32x32" href="https://ibb.co/XYBMjYG">
@@ -19,9 +19,9 @@ if($_SESSION['username'] !== ""){
 }
 // connexion à la base de données
 $db_username = 'slam';
-$db_password = 'sio2023';
-$db_name = 'lpfs';
-$db_host = 'localhost:3306'; 
+    $db_password = 'sio2023';
+    $db_name = 'lpfs';
+    $db_host = 'localhost:3306';
 
 $db = mysqli_connect($db_host, $db_username, $db_password,$db_name)
     or die('could not connect to database');

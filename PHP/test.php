@@ -24,9 +24,9 @@
     if (isset($_POST['num_secu'])) {
             // Connexion à la base de données
             $db_username = 'slam';
-            $db_password = 'sio2023';
-            $db_name = 'lpfs';
-            $db_host = 'localhost:3306';
+    $db_password = 'sio2023';
+    $db_name = 'lpfs';
+    $db_host = 'localhost:3306';
             
         $db = mysqli_connect($db_host, $db_username, $db_password, $db_name);
 

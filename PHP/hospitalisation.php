@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Hospitalisation</title>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
   <link rel="icon" type="image/png" sizes="32x32" href="https://ibb.co/XYBMjYG">
@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="nom">
                <div class="sec-2">
                 <ion-icon name="accessibility-outline"></ion-icon>
-                 <input type="text" name="num_secu" placeholder="<?php echo $_SESSION['num_secu'] ?>"readonly/>
+                 <input type="text" maxlength='15' name="num_secu" placeholder="<?php echo $_SESSION['num_secu'] ?>"readonly/>
                 </div>
               </div>
 

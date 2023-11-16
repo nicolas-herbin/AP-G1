@@ -18,6 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if($stmt->execute()){
         $result=$stmt->fetchAll();
         var_dump($result);
+        var_dump($sql);
         $ID_personne=$result[0][0];
         $sql="INSERT INTO `personne_prev`(`ID_personne`, `Num_secu`) VALUES ('$ID_personne','$num_secu')";
         $stmt = $pdo->prepare($sql);
@@ -36,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Prevenir</title>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
   <link rel="icon" type="image/png" sizes="32x32" href="https://ibb.co/XYBMjYG">
@@ -78,7 +79,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
              <div class="nom">
                <div class="sec-2">
                 <ion-icon name="accessibility-outline"></ion-icon>
-                 <input type="text" maxlength='13'name="telephone" placeholder="numéro telephone"/>
+                 <input type="text" maxlength='10'name="telephone" placeholder="numéro telephone"/>
                 </div>
               </div>
 

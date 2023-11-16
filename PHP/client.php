@@ -3,7 +3,9 @@
     <meta charset="utf-8">
     <!-- importer le fichier de style -->
     <link href="../CSS/client.css" rel="stylesheet" />
-</head>
+    <script type="text/javascript" src="../JS_client.js"></script>
+    <title>Inscrire un patient </title>
+ </head>
 <body>
 <div id="content">
     <!-- tester si l'utilisateur est connecté -->
@@ -25,14 +27,13 @@
     // Requête SQL pour récupérer les données des patients
     $sql = "SELECT * FROM patient";
     $result = $db->query($sql);
-
     if(!empty($_POST)){
         extract($_POST);
         $query = "INSERT INTO `patient`(`Num_secu`, `Civ`, `Nom_naissance`, `Nom_ep`, `Prenom`, `Adresse`, `Cp`, `Ville`, `Email`, `Telephone`) VALUES ('$num_secu','$civ','$nom_naissance','$nom_ep','$prenom','$adresse','$cp','$ville','$email','$telephone')";
         mysqli_query($db, $query);
         $_SESSION['num_secu']=$num_secu ; 
         // Rediriger vers infoclient.php après avoir soumis le formulaire
-        header('location:prevenir.php');
+        header('location:infoclient.php');
         exit(); // Assure que la redirection se produit immédiatement
     }
     ?>
@@ -49,18 +50,40 @@
                 <div class="nom">
                <div class="sec-2">
                 <ion-icon name="accessibility-outline"></ion-icon>
-                 <input maxlength='15' type="number" name="num_secu" placeholder="Numero de sécurité social"/>
+                
+                <input type="text" maxlength="15" name="num_secu" id="num_secu" placeholder="Numero de sécurité social" />
+                  <script>
+               
+                  document.getElementById("num_secu").addEventListener("input", function () {
+                  this.value = this.value.replace(/[^0-9]/g, ''); // Replace any non-numeric characters with an empty string
+                  
+                  // Check if the value of num_secu starts with "01" or "07"
+                    const numSecuValue = this.value;
+                    const civSelect = document.getElementById("civ");
+                    
+                    if (numSecuValue.startsWith("01") || numSecuValue.startsWith("07")) {
+                      // If it starts with "01" or "07", select "Homme"
+                      civSelect.value = "Homme";
+                    } else if (numSecuValue.startsWith("02") || numSecuValue.startsWith("08")) {
+                      // Otherwise, reset the selection
+                      civSelect.value = "Femme";
+                    } else if (numSecuValue.startsWith("03") || numSecuValue.startsWith("04")){
+                      civSelect.value = "Autre"
+                    }
+                });
+                  </script>
+
                 </div>
               </div>
 
               <div class="prenom">
                <div class="sec-2">
                 <ion-icon name="accessibility-outline"></ion-icon>
-                <select name="civ">
-                <option value="" disabled selected>Choisissez la civilité a l'état civile</option>
-                  <option value="Homme">Homme</option>
-                  <option value="Femme">Femme</option>
-                  <option value="Autre">Autre</option>
+                <select id="civ"name="civ" readonly>
+                <option value="" disabled selected>Choisissez la civilité</option>
+                  <option value="Homme"disabled>Homme</option>
+                  <option value="Femme"disabled>Femme</option>
+                  <option value="Autre"disabled>Autre</option>
                 </select>
                 </div>
               </div>
@@ -130,5 +153,6 @@
         </div>
     </div>
 </div>
+
 </body>
 </html>

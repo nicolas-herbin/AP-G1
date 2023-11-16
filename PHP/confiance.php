@@ -1,10 +1,3 @@
-<!--NE FONCTIONNE PAS--->
-<!--NE FONCTIONNE PAS--->
-<!--NE FONCTIONNE PAS--->
-<!--NE FONCTIONNE PAS--->
-<!--NE FONCTIONNE PAS--->
-<!--NE FONCTIONNE PAS--->
-
 <?php
 session_start();
 include_once "config.php";
@@ -50,7 +43,7 @@ $sql="SELECT personne.ID_personne, personne.nom ,personne.prenom, personne.telep
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Personne Confiance</title>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
   <link rel="icon" type="image/png" sizes="32x32" href="https://ibb.co/XYBMjYG">
@@ -60,7 +53,7 @@ $sql="SELECT personne.ID_personne, personne.nom ,personne.prenom, personne.telep
 <div class="mainscreen">
     <div class="card">
         <div class="leftside">
-            <img src="LOGIN PAGE/IMG/4990224-removebg-preview.png" alt="">
+            <img src="../IMG/4990224-removebg-preview.png" alt="">
         </div>
         <div class="rightside">
             <form method="POST">
@@ -69,7 +62,7 @@ $sql="SELECT personne.ID_personne, personne.nom ,personne.prenom, personne.telep
                 <div class="nom">
                 <div class="sec-2">
                     <ion-icon name="accessibility-outline"></ion-icon>
-                        <select name="medecin" id="medecin">
+                        <select name="medecin" id="medecin" onchange="myFunction()">
                             <option value="">utilisé precendente personne ?</option>
                             <?php 
                                 foreach ($result as $result){
@@ -79,12 +72,36 @@ $sql="SELECT personne.ID_personne, personne.nom ,personne.prenom, personne.telep
                                 }
                             
                             ?>
+                            <option value="autre">utilisé Autre personne ?</option>
                         </select>
                     </div>
                 </div>
-                <button type="submit" name="form1" class="button">Suivant ></button>
+                <button type="submit" name="form1"  id="1erbutton" class="button">Suivant </button>
             </form>
 
+
+            <!-- Function to show the div myDIV when autre is selected -->
+            <script> function myFunction() {
+                var x = document.getElementById("myDIV");
+                var y = document.getElementById("1erbutton");
+                var select = document.getElementById("medecin");
+                if (select.value === "autre"){
+                if (x.style.display === "none") {
+                    x.style.display = "block";
+                    y.style.display = "none";
+                } else {
+                    x.style.display = "none";
+                    y.style.display = "block";
+                }}
+                }
+            </script>
+            
+            
+            
+            
+            <div id="myDIV" style="display: none;">
+
+                            
                 <form method="POST">
                 <div class="nom">
                <div class="sec-2">
@@ -113,7 +130,7 @@ $sql="SELECT personne.ID_personne, personne.nom ,personne.prenom, personne.telep
              <div class="nom">
                <div class="sec-2">
                 <ion-icon name="accessibility-outline"></ion-icon>
-                 <input type="text" maxlength='13' name="telephone" placeholder="numéro telephone"/>
+                 <input type="text" maxlength='10' name="telephone" placeholder="numéro telephone"/>
                 </div>
               </div>
 
@@ -129,6 +146,7 @@ $sql="SELECT personne.ID_personne, personne.nom ,personne.prenom, personne.telep
             <form method="POST" action="logout.php">
                 <button type="submit"  class="buttonn">Déconnexion</button>
             </form>
+            </div>
         </div>
     </div>
 </div>

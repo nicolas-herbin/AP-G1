@@ -5,7 +5,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     $db_username = 'slam';
     $db_password = 'sio2023';
     $db_name = 'lpfs';
-    $db_host = 'localhost:3306';
+    $db_host = 'localhost:3306'; 
     
     $db = mysqli_connect($db_host, $db_username, $db_password, $db_name) or die('Could not connect to database');
 
@@ -37,26 +37,26 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         if (mysqli_num_rows($exec_requete) > 0 && $id == 4) {
             // Utilisateur trouvé avec le mot de passe correct, rediriger vers la page client
             $_SESSION['username'] = $username;
-            header('Location: client.php');
+            header('Location: redirection.php');
             exit();
         } else if (mysqli_num_rows($exec_requete) > 0 && $id == 1) {
             // Utilisateur trouvé avec le mot de passe correct, rediriger vers la page index.html
             $_SESSION['username'] = $username;
-            header('Location: index.html');
+            header('Location: client.php');
             exit();
         } else {
             // Mot de passe incorrect pour l'utilisateur
-            header('Location: ./index.php?erreur=1');
+            header('Location: ../index.php?erreur=1');
             exit();
         }
     } else {
         // Utilisateur vide
-        header('Location: ./index.php?erreur=2');
+        header('Location: ../index.php?erreur=2');
         exit();
     }
 } else {
     // Rediriger vers la page de connexion si les données POST ne sont pas définies
-    header('Location: ./index.php');
+    header('Location: ../index.php');
     exit();
 }
 

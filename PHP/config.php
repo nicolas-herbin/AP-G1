@@ -3,22 +3,13 @@
 
 
 
-//don't change
-    $databases_acces = 'localhost';
-    $databases_port = '3306';
-//connection BDD locale
-    $databases_names1 = 'lpfs';
-    $databases_pass1 = 'sio2023';
-    $databases_user1 = 'slam';
-
-
 // //don't change
-//     $databases_acces = 'localhost';
-//     $databases_port = '3306';
+     $databases_acces = 'localhost';
+     $databases_port = '3306';
 // //connection BDD locale
-//     $databases_names1 = 'lpfs';
-//     $databases_pass1 = '';
-//     $databases_user1 = 'root';
+     $databases_names1 = 'lpfs';
+     $databases_pass1 = 'sio2023';
+     $databases_user1 = 'slam';
 
 //requet et test de connection a la bdd
 try{

@@ -15,7 +15,12 @@ body {
 
   h1{
     color: #FF3131;
-    margin-top: 30px;
+    margin-top: 250px;
+  }
+
+  p{
+    text-align: center;
+    color: #FF3131;
   }
   
   .card {
@@ -69,7 +74,7 @@ body {
     color: white;
     font-weight: 350;
     font-size: 1.2rem;
-    margin-top: 40px;
+    margin-top: 20px;
     width: 100%;
     letter-spacing: .11rem;
     outline: none;
@@ -81,7 +86,7 @@ body {
   }
   
   .buttonn {
-    background: #FF3131;
+    background: #87b0ee;
     padding: 2px;
     border: none;
     border-radius: 5px;
