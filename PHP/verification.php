@@ -5,15 +5,15 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     $db_username = 'slam';
     $db_password = 'sio2023';
     $db_name = 'lpfs';
-    $db_host = 'localhost:3306'; 
-    
+    $db_host = 'localhost:3306';
+
     $db = mysqli_connect($db_host, $db_username, $db_password, $db_name) or die('Could not connect to database');
 
     // Échapper les données pour éviter les attaques SQL
     $username = mysqli_real_escape_string($db, htmlspecialchars($_POST['username']));
     $password = mysqli_real_escape_string($db, htmlspecialchars($_POST['password']));
 
-    if ($username !== "" && $_POST['captchaInput']==$_SESSION['captcha']) {
+    if ($username !== "" && $_POST['captchaInput'] == $_SESSION['captcha']) {
         // Vérifier si le mot de passe est "root"
         if (strtolower($password) === 'root') {
             // Mot de passe est "root", vérifier si l'utilisateur existe

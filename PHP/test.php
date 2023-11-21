@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +12,7 @@
         }
     </style>
 </head>
+
 <body>
     <h1>Entrez votre numéro de sécurité sociale</h1>
     <form method="POST">
@@ -22,12 +24,12 @@
     <?php
     // Vérifie si le formulaire a été soumis
     if (isset($_POST['num_secu'])) {
-            // Connexion à la base de données
-            $db_username = 'slam';
-    $db_password = 'sio2023';
-    $db_name = 'lpfs';
-    $db_host = 'localhost:3306';
-            
+        // Connexion à la base de données
+        $db_username = 'slam';
+        $db_password = 'sio2023';
+        $db_name = 'lpfs';
+        $db_host = 'localhost:3306';
+
         $db = mysqli_connect($db_host, $db_username, $db_password, $db_name);
 
         if (!$db) {
@@ -69,4 +71,5 @@
     }
     ?>
 </body>
+
 </html>
