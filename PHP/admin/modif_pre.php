@@ -23,6 +23,7 @@ if (isset($_POST["form1"])) {
 } elseif (isset($_POST["form2"])) {
     //Change the request based on which table is changed
     $table = $_REQUEST['table'];
+
     //=================================================================================HOSPITALISATION=================================================================================== 
     if ($table === "hospitalisation") {
         echo 'entre hospi';
@@ -35,14 +36,28 @@ if (isset($_POST["form1"])) {
         $docteur = $_REQUEST['docteur'];
         //prep
         $sql = "UPDATE `hospitalisation` SET `Date`='$date',`type`='$type',`Heure`='$heure',`Chambre`='$chambre',`Docteur`='$docteur' WHERE Num_secu=$num_secu;";
-        echo $sql;
+
     }
     //=================================================================================DOCUMENTS======================================================================================== 
     elseif ($table === "documents") {
-        echo 'entre doc';
+        // CETTE CHOSE NE FONCTIONNE PAS J'EN AI MARRE 
         //ini
-        $sql = "";
+        $carte_vitaler = file_get_contents($_FILES['carte_vitale_recto']['tmp_name']);
+        $carte_vitalev = file_get_contents($_FILES['carte_vitale_verso']['tmp_name']);
+        $carte_mutueller = file_get_contents($_FILES['carte_mutuelle_recto']['tmp_name']);
+        $carte_mutuellev = file_get_contents($_FILES['carte_mutuelle_verso']['tmp_name']);
+        $carte_idr = file_get_contents($_FILES['carte_identite_recto']['tmp_name']);
+        $carte_idv = file_get_contents($_FILES['carte_identite_verso']['tmp_name']);
+        $livret_fam = file_get_contents($_FILES['livret_famille_recto']['tmp_name']);
+        $jugement = file_get_contents($_FILES['jugement_recto']['tmp_name']);
+        $num_secu = $_REQUEST['num_secu'];
+
+        //prep
+        $sql = "UPDATE `documents` SET `Carte_vit`=$carte_vitaler, `Carte_mut`=$carte_mutueller, `Carte_ide`=$carte_idr, `Livret_fam`=$livret_fam,  `Carte_vital_verso`=$carte_vitalev, `Carte_mut_verso`=$carte_mutuellev, `Carte_ide_Verso`=$carte_idv, `jugement`=$jugement WHERE Num_secu=$num_secu";
+
+
     }
+
     //=================================================================================PATIENT========================================================================================== 
     elseif ($table === "patient") {
         echo 'entre pat';
@@ -60,15 +75,27 @@ if (isset($_POST["form1"])) {
         //prep
         $sql = "UPDATE `patient` SET `Nom_naissance`='$nom_naissance',`Nom_ep`='$nom_epouse',
         `Prenom`='$prenom',`Adresse`='$adresse',`Cp`='$cp',`Ville`='$ville',`Email`='$email',`Telephone`='$telephone',`Date_naissance`='$date_naissance' WHERE `Num_secu`=$num_secu";
+
     }
     //=================================================================================COUVERTURE=======================================================================================        
     elseif ($table === "couverture_social") {
         echo 'entre couv';
-        $sql = "";
+        $num_secu = $_REQUEST['num_secu'];
+        $assure = $_REQUEST['assure'];
+        $ALD = $_REQUEST['ALD'];
+        $nom_secu = $_REQUEST['nom_mutuelle'];
+        $num_adh = $_REQUEST['num_adherent'];
+        $nom_adh = $_request['nom_adherent'];
+
+
+        //prep
+        $sql = "UPDATE `couverture_social` SET `Assure`='$assure',`ALD`='$ALD',`Nom_secu`='$nom_secu',`Nom_mutuelle`='$nom_adh',`Num_adherent`='$num_adh' WHERE Num_secu=$num_secu";
+
     }
-    //EXEC 
     $stmt = $pdo->prepare($sql);
+
     $stmt->execute();
+
     //header("location:../admin.php");
 }
 ?>
@@ -148,6 +175,7 @@ if (isset($_POST["form1"])) {
                     echo "<option value='hospitalisation'{$is_not_type_selected}>hospitalisation</option>";
                     echo '  </select>';
 
+                    //affichage date & heure
                     echo '  <input type="date"  name="date" value="' . $result2[0]['Date'] . '">';
                     echo '  <input type="time"  name="heure" value="' . $result2[0]['Heure'] . '">';
 
@@ -180,7 +208,7 @@ if (isset($_POST["form1"])) {
                     $stmt = $pdo->prepare($sql);
                     $stmt->execute();
                     $result2 = $stmt->fetchAll();
-
+                    echo ' <form method="POST" enctype="multipart/form-data>';
                     echo '<img class="product-image" src="data:image/jpeg;base64,' . base64_encode($result2[0]['Carte_vit']) . '" /> ';
                     echo '<img class="product-image" src="data:image/jpeg;base64,' . base64_encode($result2[0]['Carte_vital_verso']) . '" /> ';
                     echo '<div class="prenom">';
@@ -226,6 +254,7 @@ if (isset($_POST["form1"])) {
                     echo '</div>';
                     echo " <input type='hidden' name='table' value=$table>";
                     echo " <input type='hidden' name='num_secu' value=$num_secu>";
+                    echo '  <input type="submit" name="form2" value="suivant" class="button"></button>';
                 } //Carte_vit	Carte_mut	Carte_ide	Livret_fam	Num_secu	Carte_vital_verso	Carte_mut_verso	Carte_ide_Verso	jugement	
                 
 
