@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <!-- importer le fichier de style -->
-    <link href="../../CSS/del_service.css" rel="stylesheet" />
+    <link href="../../CSS/del_medecin.css" rel="stylesheet" />
     <script type="text/javascript" src="../JS_client.js"></script>
     <title>Supprimer Un Service </title>
 </head>
@@ -13,7 +13,7 @@
         <!-- tester si l'utilisateur est connecté -->
         <?php
         session_start();
-        if($_SESSION['username'] !== "") {
+        if ($_SESSION['username'] !== "") {
             $user = $_SESSION['username'];
         }
         // connexion à la base de données
@@ -24,12 +24,12 @@
 
         $db = mysqli_connect($db_host, $db_username, $db_password, $db_name) or die('could not connect to database');
 
-        if(!empty($_POST)) {
+        if (!empty($_POST)) {
             // Vérifier si le formulaire est soumis
-            $serviceToDelete = $_POST['service'];
+            $serviceToDelete = $_POST['personnel'];
 
             // Supprimer le service de la base de données
-            $query = "DELETE FROM services WHERE Nom_service = '$serviceToDelete'";
+            $query = "DELETE FROM personnel WHERE Nom = '$serviceToDelete'";
             mysqli_query($db, $query);
 
             // Rediriger vers la page principale après suppression
@@ -38,7 +38,7 @@
         }
 
         // Récupérer les services de la base de données
-        $sql = "SELECT * FROM services";
+        $sql = "SELECT * FROM personnel";
         $result = $db->query($sql);
         ?>
     </div>
@@ -57,10 +57,10 @@
                         <div class="sec-2">
                             <ion-icon name="accessibility-outline"></ion-icon>
                             <label for="service">Choisissez un service à supprimer:</label>
-                            <select id="service" name="service">
+                            <select id="service" name="personnel">
                                 <?php
-                                while($row = $result->fetch_assoc()) {
-                                    echo "<option value='".$row['Nom_service']."'>".$row['Nom_service']."</option>";
+                                while ($row = $result->fetch_assoc()) {
+                                    echo "<option value='" . $row['Nom'] . "'>" . $row['Nom'] . "</option>";
                                 }
                                 ?>
                             </select>
@@ -69,6 +69,7 @@
 
                     <button type="submit" class="button">Supprimer ></button>
                 </form>
+                <button class="button" onclick="window.location.href='../redirection.php'">Pre admission</button>
             </div>
         </div>
     </div>

@@ -29,20 +29,28 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         }
 
         // Effectuer la requête SQL pour vérifier l'utilisateur
-        $requete = "SELECT Metier FROM personnel WHERE Email = '" . $username . "' AND mot_de_passe = '" . $password . "'";
+        $requete = "SELECT Metier,ID FROM personnel WHERE Email = '" . $username . "' AND mot_de_passe = '" . $password . "'";
         $exec_requete = mysqli_query($db, $requete);
         $reponse = mysqli_fetch_array($exec_requete);
-        $id = $reponse['Metier'];
-
-        if (mysqli_num_rows($exec_requete) > 0 && $id == 4) {
+        $metier = $reponse['Metier'];
+        $ID_doc = $reponse['ID'];
+        if (mysqli_num_rows($exec_requete) > 0 && $metier == 4) {
             // Utilisateur trouvé avec le mot de passe correct, rediriger vers la page client
             $_SESSION['username'] = $username;
+            $_SESSION['ID_doc'] = $ID_doc;
             header('Location: redirection.php');
             exit();
-        } else if (mysqli_num_rows($exec_requete) > 0 && $id == 1) {
+        } else if (mysqli_num_rows($exec_requete) > 0 && $metier == 1) {
             // Utilisateur trouvé avec le mot de passe correct, rediriger vers la page index.html
             $_SESSION['username'] = $username;
-            header('Location: client.php');
+            $_SESSION['ID_doc'] = $ID_doc;
+            header('Location: docteur.php');
+            exit();
+        } else if (mysqli_num_rows($exec_requete) > 0 && $metier == 3) {
+            // Utilisateur trouvé avec le mot de passe correct, rediriger vers la page index.html
+            $_SESSION['username'] = $username;
+            $_SESSION['ID_doc'] = $ID_doc;
+            header('Location: infoclient.php');
             exit();
         } else {
             // Mot de passe incorrect pour l'utilisateur
@@ -60,6 +68,5 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     exit();
 }
 
-// Fermer la connexion à la base de données
-mysqli_close($db);
+
 ?>

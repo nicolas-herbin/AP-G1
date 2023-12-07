@@ -22,12 +22,13 @@
             $user = $_SESSION['username'];
         }
         $num_secu = $_SESSION['num_secu'];
+
         // Connexion à la base de données
         $db_username = 'slam';
         $db_password = 'sio2023';
         $db_name = 'lpfs';
         $db_host = 'localhost:3306';
-
+        $adulte = '';
         $db = mysqli_connect($db_host, $db_username, $db_password, $db_name)
             or die('Could not connect to the database');
 
@@ -43,11 +44,10 @@
         if ($age >= 18) {
             $adulte = 1;
         }
-        ;
 
         if (!empty($_POST)) {
             extract($_POST);
-
+            $num_secu = $_SESSION['num_secu'];
 
             // Gestion de l'image
             if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
@@ -70,6 +70,7 @@
                 $livretFamilleData = file_get_contents($_FILES['livret_famille_recto']['tmp_name']); // Recto
                 $jugementRectoData = file_get_contents($_FILES['jugement_recto']['tmp_name']); // Recto
             }
+
             // Échappez les données pour les requêtes SQL
             $carteVitaleData = mysqli_real_escape_string($db, $carteVitaleData);
             $carteVitaleVersoData = mysqli_real_escape_string($db, $carteVitaleVersoData);
@@ -85,11 +86,12 @@
             if ($adulte == 0) { //SI ENFANT
                 $query = "INSERT INTO `documents`(`Carte_vit`, `Carte_mut`, `Carte_ide`, `Livret_fam`, `Num_secu`, `Carte_vital_verso`, `Carte_mut_verso`, `Carte_ide_Verso`, `Jugement`) 
             VALUES ('$carteVitaleData', '$carteMutuelleData', '$carteIdentiteData', '$livretFamilleData', '$num_secu', '$carteVitaleVersoData', '$carteMutuelleVersoData', '$carteIdentiteVersoData', '$jugementRectoData')";
-            } elseif ($adulte == 1) { //SI ADULTE
+            } else { //SI ADULTE
                 $query = "INSERT INTO `documents`(`Carte_vit`, `Carte_mut`, `Carte_ide`, `Num_secu`, `Carte_vital_verso`, `Carte_mut_verso`, `Carte_ide_Verso`) 
                   VALUES ('$carteVitaleData', '$carteMutuelleData', '$carteIdentiteData','$num_secu', '$carteVitaleVersoData', '$carteMutuelleVersoData', '$carteIdentiteVersoData')";
 
             }
+
             mysqli_query($db, $query);
 
             // Rediriger vers hospitalisation.php après avoir soumis le formulaire

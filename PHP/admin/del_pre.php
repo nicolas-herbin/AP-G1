@@ -65,6 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     <button type="submit" class="button">Supprimer</button>
                 </form>
+                <button class="button" onclick="window.location.href='../redirection.php'">Pre admission</button>
             </div>
         </div>
     </div>
