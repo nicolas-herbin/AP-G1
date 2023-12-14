@@ -3,7 +3,7 @@ include_once("config.php");
 session_start();
 $ID_doc = $_SESSION['ID_doc'];
 
-$sql = "SELECT h.Date,h.Heure,h.type,pa.Nom_naissance,pa.Telephone FROM personnel p 
+$sql = "SELECT p.Nom,h.Date,h.Heure,h.type,pa.Nom_naissance,pa.Telephone FROM personnel p 
 INNER JOIN hospitalisation h on p.ID = h.Docteur
 INNER JOIN patient pa on h.Num_secu = pa.Num_secu
 WHERE p.ID=$ID_doc 
@@ -12,6 +12,8 @@ ORDER BY h.Date,h.Heure;";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
 $result_rdv = $stmt->fetchAll();
+//var_dump($result_rdv);
+$ResultRdvNom = $result_rdv[0]['Nom'];
 
 
 
@@ -23,12 +25,12 @@ $result_rdv = $stmt->fetchAll();
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Page Médecin</title>
+    <title>Page MÃ©decin</title>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
     <link rel="icon" type="image/png" sizes="32x32" href="https://ibb.co/XYBMjYG">
-    <link href="../../CSS/modif_medecin.css" rel="stylesheet" />
+    <link href="../CSS/modif_medecin.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -38,12 +40,13 @@ $result_rdv = $stmt->fetchAll();
     <div class="mainscreen">
         <div class="card">
             <div class="leftside">
-                <img src="../../IMG/4990224-removebg-preview.png" alt="">
+                <img src="../IMG/4990224-removebg-preview.png" alt="">
             </div>
             <div class="rightside">
                 <form method="POST">
                     <div id="modificationSection" style="display:block;">
 
+                        <?php echo "<h1>Bonjour Docteur $ResultRdvNom </h1>" ?>
 
                         <div class=" prenom">
                             <div class="sec-2">

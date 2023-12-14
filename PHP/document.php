@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>LOGIN PAGE LPF</title>
+    <title>Document LPFS</title>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
@@ -21,29 +21,20 @@
         if ($_SESSION['username'] !== "") {
             $user = $_SESSION['username'];
         }
-        $num_secu = $_SESSION['num_secu'];
 
         // Connexion à la base de données
         $db_username = 'slam';
         $db_password = 'sio2023';
         $db_name = 'lpfs';
         $db_host = 'localhost:3306';
-        $adulte = '';
+
+
         $db = mysqli_connect($db_host, $db_username, $db_password, $db_name)
             or die('Could not connect to the database');
 
         // Requête SQL pour récupérer les données des patients
         $sql = "SELECT * FROM couverture_social";
         $result = $db->query($sql);
-        $sql = "SELECT Date_naissance FROM patient where Num_secu=$num_secu";
-        $result2 = $db->query($sql);
-        foreach ($result2 as $row) {
-            $datenaissance = $row['Date_naissance'];
-        }
-        $age = date_diff(date_create($datenaissance), date_create('now'))->y;
-        if ($age >= 18) {
-            $adulte = 1;
-        }
 
         if (!empty($_POST)) {
             extract($_POST);
@@ -66,11 +57,9 @@
             $carteMutuelleVersoData = file_get_contents($_FILES['carte_mutuelle_verso']['tmp_name']); // Verso
             $carteIdentiteData = file_get_contents($_FILES['carte_identite_recto']['tmp_name']); // Recto
             $carteIdentiteVersoData = file_get_contents($_FILES['carte_identite_verso']['tmp_name']); // Verso
-            if ($adulte == 0) {
-                $livretFamilleData = file_get_contents($_FILES['livret_famille_recto']['tmp_name']); // Recto
-                $jugementRectoData = file_get_contents($_FILES['jugement_recto']['tmp_name']); // Recto
-            }
-
+            $livretFamilleData = file_get_contents($_FILES['livret_famille_recto']['tmp_name']); // Recto
+            $jugementRectoData = file_get_contents($_FILES['jugement_recto']['tmp_name']); // Recto
+        
             // Échappez les données pour les requêtes SQL
             $carteVitaleData = mysqli_real_escape_string($db, $carteVitaleData);
             $carteVitaleVersoData = mysqli_real_escape_string($db, $carteVitaleVersoData);
@@ -78,20 +67,12 @@
             $carteMutuelleVersoData = mysqli_real_escape_string($db, $carteMutuelleVersoData);
             $carteIdentiteData = mysqli_real_escape_string($db, $carteIdentiteData);
             $carteIdentiteVersoData = mysqli_real_escape_string($db, $carteIdentiteVersoData);
-            if ($adulte == 0) {
-                $livretFamilleData = mysqli_real_escape_string($db, $livretFamilleData);
-                $jugementRectoData = mysqli_real_escape_string($db, $jugementRectoData);
-            }
+            $livretFamilleData = mysqli_real_escape_string($db, $livretFamilleData);
+            $jugementRectoData = mysqli_real_escape_string($db, $jugementRectoData);
+
             // Insérez les données dans la table documents avec les images
-            if ($adulte == 0) { //SI ENFANT
-                $query = "INSERT INTO `documents`(`Carte_vit`, `Carte_mut`, `Carte_ide`, `Livret_fam`, `Num_secu`, `Carte_vital_verso`, `Carte_mut_verso`, `Carte_ide_Verso`, `Jugement`) 
-            VALUES ('$carteVitaleData', '$carteMutuelleData', '$carteIdentiteData', '$livretFamilleData', '$num_secu', '$carteVitaleVersoData', '$carteMutuelleVersoData', '$carteIdentiteVersoData', '$jugementRectoData')";
-            } else { //SI ADULTE
-                $query = "INSERT INTO `documents`(`Carte_vit`, `Carte_mut`, `Carte_ide`, `Num_secu`, `Carte_vital_verso`, `Carte_mut_verso`, `Carte_ide_Verso`) 
-                  VALUES ('$carteVitaleData', '$carteMutuelleData', '$carteIdentiteData','$num_secu', '$carteVitaleVersoData', '$carteMutuelleVersoData', '$carteIdentiteVersoData')";
-
-            }
-
+            $query = "INSERT INTO `documents`(`Carte_vit`, `Carte_mut`, `Carte_ide`, `Livret_fam`, `Num_secu`, `Carte_vital_verso`, `Carte_mut_verso`, `Carte_ide_Verso`, `Jugement`) 
+                  VALUES ('$carteVitaleData', '$carteMutuelleData', '$carteIdentiteData', '$livretFamilleData', '$num_secu', '$carteVitaleVersoData', '$carteMutuelleVersoData', '$carteIdentiteVersoData', '$jugementRectoData')";
             mysqli_query($db, $query);
 
             // Rediriger vers hospitalisation.php après avoir soumis le formulaire
@@ -99,7 +80,6 @@
             exit(); // Assure que la redirection se produit immédiatement
         }
         ?>
-
     </div>
     <div class="mainscreen">
         <div class="card">
@@ -151,25 +131,25 @@
                                 accept=".jpg, .jpeg, .png, .pdf" />
                         </div>
                     </div>
-                    <?php
-                    if ($adulte = 0) {
-                        echo '<div class="prenom">';
-                        echo '<div class="sec-2">';
-                        echo '<ion-icon name="accessibility-outline"></ion-icon>';
-                        echo '<label for="livret_famille_recto">Livret de Famille (Recto) :</label>';
-                        echo '<input type="file" name="livret_famille_recto" id="livret_famille_recto" accept=".jpg, .jpeg, .png, .pdf" />';
-                        echo '</div>';
-                        echo '</div>';
 
-                        echo '<div class="prenom">';
-                        echo '<div class="sec-2">';
-                        echo '<ion-icon name="accessibility-outline"></ion-icon>';
-                        echo '<label for="jugement_recto">Jugement (Recto) :</label>';
-                        echo '<input type="file" name="jugement_recto" id="jugement_recto" accept=".jpg, .jpeg, .png, .pdf" />';
-                        echo '</div>';
-                        echo '</div>';
-                    }
-                    ?>
+                    <div class="prenom">
+                        <div class="sec-2">
+                            <ion-icon name="accessibility-outline"></ion-icon>
+                            <label for="livret_famille_recto">Livret de Famille (Recto) :</label>
+                            <input type="file" name="livret_famille_recto" id="livret_famille_recto"
+                                accept=".jpg, .jpeg, .png, .pdf" />
+                        </div>
+                    </div>
+
+                    <div class="prenom">
+                        <div class="sec-2">
+                            <ion-icon name="accessibility-outline"></ion-icon>
+                            <label for="jugement_recto">Jugement (Recto) :</label>
+                            <input type="file" name="jugement_recto" id="jugement_recto"
+                                accept=".jpg, .jpeg, .png, .pdf" />
+                        </div>
+                    </div>
+
                     <!-- Répétez le même schéma pour d'autres types de cartes si nécessaire -->
 
                     <button type="submit" class="button">Suivant ></button>

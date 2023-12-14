@@ -42,7 +42,7 @@ if (isset($_POST["form1"])) {
     elseif ($table === "documents") {
         // CETTE CHOSE NE FONCTIONNE PAS J'EN AI MARRE 
         //ini
-        $carte_vitaler = file_get_contents($_FILES['carte_vitale_recto']['tmp_name']);
+        /*$carte_vitaler = file_get_contents($_FILES['carte_vitale_recto']['tmp_name']);
         $carte_vitalev = file_get_contents($_FILES['carte_vitale_verso']['tmp_name']);
         $carte_mutueller = file_get_contents($_FILES['carte_mutuelle_recto']['tmp_name']);
         $carte_mutuellev = file_get_contents($_FILES['carte_mutuelle_verso']['tmp_name']);
@@ -54,7 +54,7 @@ if (isset($_POST["form1"])) {
 
         //prep
         $sql = "UPDATE `documents` SET `Carte_vit`=$carte_vitaler, `Carte_mut`=$carte_mutueller, `Carte_ide`=$carte_idr, `Livret_fam`=$livret_fam,  `Carte_vital_verso`=$carte_vitalev, `Carte_mut_verso`=$carte_mutuellev, `Carte_ide_Verso`=$carte_idv, `jugement`=$jugement WHERE Num_secu=$num_secu";
-
+        */
 
     }
 
@@ -203,58 +203,73 @@ if (isset($_POST["form1"])) {
                     echo '</form>';
                 }
                 //----------------------------------------------------------------------------DOCS------------------------------------------------------------------------------------
-                elseif ($table === "documents") {
-                    $sql = "SELECT * FROM documents WHERE Num_secu=$num_secu ";
-                    $stmt = $pdo->prepare($sql);
-                    $stmt->execute();
-                    $result2 = $stmt->fetchAll();
-                    echo ' <form method="POST" enctype="multipart/form-data>';
-                    echo '<img class="product-image" src="data:image/jpeg;base64,' . base64_encode($result2[0]['Carte_vit']) . '" /> ';
-                    echo '<img class="product-image" src="data:image/jpeg;base64,' . base64_encode($result2[0]['Carte_vital_verso']) . '" /> ';
-                    echo '<div class="prenom">';
-                    echo '        <div class="sec-2">';
-                    echo '            <ion-icon name="accessibility-outline"></ion-icon>';
-                    echo '            <label for="carte_vitale_recto">Carte Vitale (Recto/Verso) :</label>';
-                    echo '            <input type="file" name="carte_vitale_recto" id="carte_vitale_recto" accept=".jpg, .jpeg, .png, .pdf" />';
-                    echo '            <input type="file" name="carte_vitale_verso" id="carte_vitale_verso" accept=".jpg, .jpeg, .png, .pdf" />';
-                    echo '        </div>';
-                    echo '</div>';
-                    //===================================================================================================================================================================
-                    echo '<img class="product-image" src="data:image/jpeg;base64,' . base64_encode($result2[0]['Carte_mut']) . '" /> ';
-                    echo '<img class="product-image" src="data:image/jpeg;base64,' . base64_encode($result2[0]['Carte_mut_verso']) . '" /> ';
-                    echo '<div class="prenom">';
-                    echo '        <div class="sec-2">';
-                    echo '            <ion-icon name="accessibility-outline"></ion-icon>';
-                    echo '            <label for="carte_mutuelle_recto">Carte Vitale (Recto/Verso) :</label>';
-                    echo '            <input type="file" name="carte_mutuelle_recto" id="carte_mutuelle_recto" accept=".jpg, .jpeg, .png, .pdf" />';
-                    echo '            <input type="file" name="carte_mutuelle_verso" id="carte_mutuelle_verso" accept=".jpg, .jpeg, .png, .pdf" />';
-                    echo '        </div>';
-                    echo '</div>';
-                    //===================================================================================================================================================================
-                    echo '<img class="product-image" src="data:image/jpeg;base64,' . base64_encode($result2[0]['Carte_ide']) . '" /> ';
-                    echo '<img class="product-image" src="data:image/jpeg;base64,' . base64_encode($result2[0]['Carte_ide_Verso']) . '" /> ';
-                    echo '<div class="prenom">';
-                    echo '        <div class="sec-2">';
-                    echo '            <ion-icon name="accessibility-outline"></ion-icon>';
-                    echo '            <label for="carte_identite_recto">Carte Identite (Recto/Verso) :</label>';
-                    echo '            <input type="file" name="carte_identite_recto" id="carte_identite_recto" accept=".jpg, .jpeg, .png, .pdf" />';
-                    echo '            <input type="file" name="carte_identite_verso" id="carte_identite_verso" accept=".jpg, .jpeg, .png, .pdf" />';
-                    echo '        </div>';
-                    echo '</div>';
-                    //==================================================================================================================================================================
-                    echo '<img class="product-image" src="data:image/jpeg;base64,' . base64_encode($result2[0]['Livret_fam']) . '" /> ';
-                    echo '<img class="product-image" src="data:image/jpeg;base64,' . base64_encode($result2[0]['jugement']) . '" /> ';
-                    echo '<div class="prenom">';
-                    echo '        <div class="sec-2">';
-                    echo '            <ion-icon name="accessibility-outline"></ion-icon>';
-                    echo '            <label for="carte_vitale_recto"> jugemeent , livret fam :</label>';
-                    echo '            <input type="file" name="livret_famille_recto" id="livret_famille_recto" accept=".jpg, .jpeg, .png, .pdf" />';
-                    echo '            <input type="file" name="jugement_recto" id="jugement_recto" accept=".jpg, .jpeg, .png, .pdf" />';
-                    echo '        </div>';
-                    echo '</div>';
-                    echo " <input type='hidden' name='table' value=$table>";
-                    echo " <input type='hidden' name='num_secu' value=$num_secu>";
-                    echo '  <input type="submit" name="form2" value="suivant" class="button"></button>';
+                elseif ($table === "documents") { /*
+$sql = "SELECT * FROM documents WHERE Num_secu=$num_secu ";
+$stmt = $pdo->prepare($sql);
+$stmt->execute();
+$result2 = $stmt->fetchAll();
+$sql = "SELECT Date_naissance FROM patient where Num_secu=$num_secu";
+$stmt = $pdo->prepare($sql);
+$stmt->execute();
+$result3 = $stmt->fetchAll();
+foreach ($result3 as $row) {
+$datenaissance = $row['Date_naissance'];
+}
+$age = date_diff(date_create($datenaissance), date_create('now'))->y;
+if ($age >= 18) {
+$adulte = 1;
+}
+echo ' <form method="POST" enctype="multipart/form-data>';
+echo '<img class="product-image" src="data:image/jpeg;base64,' . base64_encode($result2[0]['Carte_vit']) . '" /> ';
+echo '<img class="product-image" src="data:image/jpeg;base64,' . base64_encode($result2[0]['Carte_vital_verso']) . '" /> ';
+echo '<div class="prenom">';
+echo '        <div class="sec-2">';
+echo '            <ion-icon name="accessibility-outline"></ion-icon>';
+echo '            <label for="carte_vitale_recto">Carte Vitale (Recto/Verso) :</label>';
+echo '            <input type="file" name="carte_vitale_recto" id="carte_vitale_recto" accept=".jpg, .jpeg, .png, .pdf" />';
+echo '            <input type="file" name="carte_vitale_verso" id="carte_vitale_verso" accept=".jpg, .jpeg, .png, .pdf" />';
+echo '        </div>';
+echo '</div>';
+//===================================================================================================================================================================
+echo '<img class="product-image" src="data:image/jpeg;base64,' . base64_encode($result2[0]['Carte_mut']) . '" /> ';
+echo '<img class="product-image" src="data:image/jpeg;base64,' . base64_encode($result2[0]['Carte_mut_verso']) . '" /> ';
+echo '<div class="prenom">';
+echo '        <div class="sec-2">';
+echo '            <ion-icon name="accessibility-outline"></ion-icon>';
+echo '            <label for="carte_mutuelle_recto">Carte Vitale (Recto/Verso) :</label>';
+echo '            <input type="file" name="carte_mutuelle_recto" id="carte_mutuelle_recto" accept=".jpg, .jpeg, .png, .pdf" />';
+echo '            <input type="file" name="carte_mutuelle_verso" id="carte_mutuelle_verso" accept=".jpg, .jpeg, .png, .pdf" />';
+echo '        </div>';
+echo '</div>';
+//===================================================================================================================================================================
+echo '<img class="product-image" src="data:image/jpeg;base64,' . base64_encode($result2[0]['Carte_ide']) . '" /> ';
+echo '<img class="product-image" src="data:image/jpeg;base64,' . base64_encode($result2[0]['Carte_ide_Verso']) . '" /> ';
+echo '<div class="prenom">';
+echo '        <div class="sec-2">';
+echo '            <ion-icon name="accessibility-outline"></ion-icon>';
+echo '            <label for="carte_identite_recto">Carte Identite (Recto/Verso) :</label>';
+echo '            <input type="file" name="carte_identite_recto" id="carte_identite_recto" accept=".jpg, .jpeg, .png, .pdf" />';
+echo '            <input type="file" name="carte_identite_verso" id="carte_identite_verso" accept=".jpg, .jpeg, .png, .pdf" />';
+echo '        </div>';
+echo '</div>';
+//==================================================================================================================================================================
+if ($adulte == 0) {
+echo '<img class="product-image" src="data:image/jpeg;base64,' . base64_encode($result2[0]['Livret_fam']) . '" /> ';
+echo '<img class="product-image" src="data:image/jpeg;base64,' . base64_encode($result2[0]['jugement']) . '" /> ';
+echo '<div class="prenom">';
+echo '        <div class="sec-2">';
+echo '            <ion-icon name="accessibility-outline"></ion-icon>';
+echo '            <label for="carte_vitale_recto"> jugemeent , livret fam :</label>';
+echo '            <input type="file" name="livret_famille_recto" id="livret_famille_recto" accept=".jpg, .jpeg, .png, .pdf" />';
+echo '            <input type="file" name="jugement_recto" id="jugement_recto" accept=".jpg, .jpeg, .png, .pdf" />';
+echo '        </div>';
+echo '</div>';
+}
+echo " <input type='hidden' name='table' value=$table>";
+echo " <input type='hidden' name='num_secu' value=$num_secu>";
+echo '  <input type="submit" name="form2" value="suivant" class="button"></button>';
+
+*/
                 } //Carte_vit	Carte_mut	Carte_ide	Livret_fam	Num_secu	Carte_vital_verso	Carte_mut_verso	Carte_ide_Verso	jugement	
                 
 
