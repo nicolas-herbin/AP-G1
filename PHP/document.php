@@ -18,9 +18,10 @@
         <!-- Tester si l'utilisateur est connecté -->
         <?php
         session_start();
-        if ($_SESSION['username'] !== "") {
-            $user = $_SESSION['username'];
+        if (!isset($_SESSION['username']) || $_SESSION['username'] === null || $_SESSION['username'] == '') {
+            header('location:../index.php');
         }
+        ;
 
         // Connexion à la base de données
         $db_username = 'slam';

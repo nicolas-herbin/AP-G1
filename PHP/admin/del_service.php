@@ -13,7 +13,11 @@
         <!-- tester si l'utilisateur est connecté -->
         <?php
         session_start();
-        if($_SESSION['username'] !== "") {
+        if (!isset($_SESSION['username']) || $_SESSION['username'] === null || $_SESSION['username'] == '') {
+            header('location:../index.php');
+        }
+        ;
+        if ($_SESSION['username'] !== "") {
             $user = $_SESSION['username'];
         }
         // connexion à la base de données
@@ -24,7 +28,7 @@
 
         $db = mysqli_connect($db_host, $db_username, $db_password, $db_name) or die('could not connect to database');
 
-        if(!empty($_POST)) {
+        if (!empty($_POST)) {
             // Vérifier si le formulaire est soumis
             $serviceToDelete = $_POST['service'];
 
@@ -59,8 +63,8 @@
                             <label for="service">Choisissez un service à supprimer:</label>
                             <select id="service" name="service">
                                 <?php
-                                while($row = $result->fetch_assoc()) {
-                                    echo "<option value='".$row['Nom_service']."'>".$row['Nom_service']."</option>";
+                                while ($row = $result->fetch_assoc()) {
+                                    echo "<option value='" . $row['Nom_service'] . "'>" . $row['Nom_service'] . "</option>";
                                 }
                                 ?>
                             </select>

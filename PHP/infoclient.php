@@ -17,6 +17,10 @@
         <!-- tester si l'utilisateur est connecté -->
         <?php
         session_start();
+        if (!isset($_SESSION['username']) || $_SESSION['username'] === null || $_SESSION['username'] == '') {
+            header('location:../index.php');
+        }
+        ;
         if ($_SESSION['username'] !== "") {
             $user = $_SESSION['username'];
         }

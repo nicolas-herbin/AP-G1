@@ -1,6 +1,10 @@
 <?php
 include_once "../config.php";
-
+session_start();
+if (!isset($_SESSION['username']) || $_SESSION['username'] === null || $_SESSION['username'] == '') {
+    header('location:../index.php');
+}
+;
 // ini 
 $sql = "SELECT * FROM personnel p inner join roles r on p.Metier=r.ID_role inner join services s on p.Services=s.ID_service order by Nom asc";
 $stmt = $pdo->prepare($sql);

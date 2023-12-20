@@ -13,6 +13,10 @@
         <!-- tester si l'utilisateur est connecté -->
         <?php
         session_start();
+        if (!isset($_SESSION['username']) || $_SESSION['username'] === null || $_SESSION['username'] == '') {
+            header('location:../index.php');
+        }
+        ;
         if ($_SESSION['username'] !== "") {
             $user = $_SESSION['username'];
         }
@@ -31,10 +35,17 @@
             // Supprimer le service de la base de données
             $query = "DELETE FROM personnel WHERE Nom = '$serviceToDelete'";
             mysqli_query($db, $query);
-
-            // Rediriger vers la page principale après suppression
-            header('Location: ../admin.php');
-            exit();
+            $query = "SELECT count(*) FROM personnel WHERE Nom = '$serviceToDelete'";
+            $result = mysqli_query($db, $query);
+            $row = mysqli_fetch_assoc($result);
+            $count = $row['count(*)'];
+            if ($count = 0) {
+                // Rediriger vers la page principale après suppression
+                header('Location: ../admin.php');
+                exit();
+            } else {
+                echo "ERREUR";
+            }
         }
 
         // Récupérer les services de la base de données
@@ -51,12 +62,12 @@
             <div class="rightside">
                 <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                     <!-- Ajout de l'action et méthode POST -->
-                    <h1>Supprimer un Service</h1>
+                    <h1>Supprimer un membre du personnel</h1>
 
                     <div class="prenom">
                         <div class="sec-2">
                             <ion-icon name="accessibility-outline"></ion-icon>
-                            <label for="service">Choisissez un service à supprimer:</label>
+                            <label for="service">Choisissez un membre du personnel à supprimer:</label>
                             <select id="service" name="personnel">
                                 <?php
                                 while ($row = $result->fetch_assoc()) {

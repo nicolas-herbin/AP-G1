@@ -1,6 +1,10 @@
 <?php
 session_start();
 include_once "config.php";
+if (!isset($_SESSION['username']) || $_SESSION['username'] === null || $_SESSION['username'] == '') {
+    header('location:../index.php');
+}
+;
 $ID_personne = $_SESSION['ID_personne'];
 $num_secu = $_SESSION["num_secu"];
 $sql = "SELECT personne.ID_personne, personne.nom ,personne.prenom, personne.telephone from personne inner join personne_prev on personne.ID_personne = personne_prev.ID_personne and personne.ID_personne=$ID_personne";

@@ -1,6 +1,10 @@
 <?php
 session_start();
 include_once "config.php";
+if (!isset($_SESSION['username']) || $_SESSION['username'] === null || $_SESSION['username'] == '') {
+    header('location:../index.php');
+}
+;
 $num_secu = $_SESSION["num_secu"];
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nom = $_REQUEST['nom'];
@@ -17,9 +21,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt = $pdo->prepare($sql);
         if ($stmt->execute()) {
             $result = $stmt->fetchAll();
-            var_dump($result);
-            var_dump($sql);
-            $ID_personne = $result[0][0];
             $sql = "INSERT INTO `personne_prev`(`ID_personne`, `Num_secu`) VALUES ('$ID_personne','$num_secu')";
             $stmt = $pdo->prepare($sql);
             $stmt->execute();

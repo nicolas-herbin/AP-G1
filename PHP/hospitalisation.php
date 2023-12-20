@@ -1,6 +1,10 @@
 <?php
 session_start();
 include_once "config.php";
+if (!isset($_SESSION['username']) || $_SESSION['username'] === null || $_SESSION['username'] == '') {
+    header('location:../index.php');
+}
+;
 $num_secu = $_SESSION["num_secu"];
 
 $query = "SELECT `Nom`, `Prénom` ,`ID` FROM `personnel` WHERE Metier = 1";

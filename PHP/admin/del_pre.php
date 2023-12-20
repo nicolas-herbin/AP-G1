@@ -1,6 +1,10 @@
 <?php
 session_start();
 include_once "../config.php";
+if (!isset($_SESSION['username']) || $_SESSION['username'] === null || $_SESSION['username'] == '') {
+    header('location:../index.php');
+}
+;
 $sql = "SELECT * FROM patient";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
