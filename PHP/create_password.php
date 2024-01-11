@@ -10,13 +10,7 @@ if (!isset($_SESSION['username'])) {
 
 if (isset($_POST['new_password'])) {
     // Connexion à la base de données
-    $db_username = 'slam';
-    $db_password = 'sio2023';
-    $db_name = 'lpfs';
-    $db_host = 'localhost:3306';
-
-
-    $db = mysqli_connect($db_host, $db_username, $db_password, $db_name) or die('Could not connect to the database');
+    include_once('connexion.php');
 
     // Échapper les données pour éviter les attaques SQL
     $new_password = mysqli_real_escape_string($db, htmlspecialchars($_POST['new_password']));

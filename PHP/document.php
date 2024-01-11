@@ -24,15 +24,7 @@
         ;
 
         // Connexion à la base de données
-        $db_username = 'slam';
-        $db_password = 'sio2023';
-        $db_name = 'lpfs';
-        $db_host = 'localhost:3306';
-
-
-        $db = mysqli_connect($db_host, $db_username, $db_password, $db_name)
-            or die('Could not connect to the database');
-
+        include_once('connexion.php');
         // Requête SQL pour récupérer les données des patients
         $sql = "SELECT * FROM couverture_social";
         $result = $db->query($sql);
