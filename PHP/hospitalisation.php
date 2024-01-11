@@ -80,7 +80,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <label for="email"></label>
                         <div class="sec-2">
                             <ion-icon name="accessibility-outline"></ion-icon>
-                            <input type="date" id="date" name="date" value="">
+                            <input type="date" id="date" name="date" value="" onchange="validateDate()">
+                            <!-- just a lil script to make sure the chosen date is not in the past or today -->
+                            <script>
+                                function validateDate() {
+                                    var selectedDate = new Date(document.getElementById('date').value);
+                                    var currentDate = new Date();
+
+                                    if (selectedDate < currentDate) {
+                                        alert('Veuillez choisir une date a partir de demain.');
+                                        document.getElementById('date').value = '';
+                                    }
+                                }
+                            </script>
+
                         </div>
                     </div>
 

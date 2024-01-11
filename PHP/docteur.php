@@ -70,6 +70,7 @@ $ResultRdvNom = $result_rdv[0]['Nom'];
 
                     </div>
                 </form>
+                <button class="button" onclick="window.location.href='../index.php'">Pre admission</button>
             </div>
         </div>
     </div>

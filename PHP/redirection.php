@@ -25,6 +25,7 @@
 
                 <button class="button" onclick="window.location.href='client.php'">Pre admission</button>
                 <button class="button" onclick="window.location.href='admin.php'">Panel Admin</button>
+                <button class="button" onclick="window.location.href='../index.php'">retour</button>
             </div>
         </div>
     </div>

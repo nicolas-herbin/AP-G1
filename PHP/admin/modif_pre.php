@@ -154,7 +154,7 @@ if (isset($_POST["form1"])) {
                     </select>
                     <input type="submit" name="form1" value="suivant" class="button"></button>
                 </form>
-
+                <button class="button" onclick="window.location.href='../redirection.php'">Pre admission</button>
                 <?php
                 $table = $GLOBALS['table'];
                 $num_secu = $GLOBALS['num_secu'];
