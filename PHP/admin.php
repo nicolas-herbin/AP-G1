@@ -1,8 +1,7 @@
 <?php
-include("config.php");
+include ("config.php");
 session_start();
-var_dump($_SESSION);
-if (!isset($_SESSION['username']) || $_SESSION['username'] === null || $_SESSION['username'] == '') {
+if (!isset ($_SESSION['username']) || $_SESSION['username'] === null || $_SESSION['username'] == '') {
     header('location:../index.php');
 }
 ;
@@ -37,8 +36,8 @@ if (!isset($_SESSION['username']) || $_SESSION['username'] === null || $_SESSION
                 <p class="Service"> Service : </p>
 
                 <button class="button" onclick="window.location.href='admin/add_service.php'">Ajouter </button>
-                <button class="button" onclick="window.location.href='admin/del_service.php'">Modifier </button>
-                <button class="button" onclick="window.location.href='admin/modif_service.php'">Supprimer </button>
+                <button class="button" onclick="window.location.href='admin/modif_service.php'">Modifier </button>
+                <button class="button" onclick="window.location.href='admin/del_service.php'">Supprimer </button>
 
 
                 <p class="Service"> Médecin : </p>

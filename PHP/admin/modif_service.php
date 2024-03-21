@@ -21,7 +21,7 @@
             $user = $_SESSION['username'];
         }
         // Connexion à la base de données
-        include_once('connexion.php');
+        include_once('../connexion.php');
 
         if (!empty($_POST)) {
             // Vérifier si le formulaire est soumis

@@ -34,6 +34,7 @@
             $result = mysqli_query($db, $query);
             $row = mysqli_fetch_assoc($result);
             $count = $row['count(*)'];
+            //A TESTER SUR LE SERVEUR LIVE SI SA FONCTIONNE PAS IL FAUT MODIFIER LE .INI
             if ($count = 0) {
                 // Rediriger vers la page principale après suppression
                 header('Location: ../admin.php');

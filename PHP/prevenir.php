@@ -17,11 +17,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql = "INSERT INTO `personne`(`Nom`, `Prenom`, `Telephone`, `Adresse`) VALUES ('$nom','$prenom','$telephone','$adresse')";
     $stmt = $pdo->prepare($sql);
     if ($stmt->execute()) {
-        $sql = "SELECT * FROM `personne` WHERE `Telephone`='$telephone'";
+        echo $telephone;
+        $sql = "SELECT ID_personne FROM `personne` WHERE `Telephone`='$telephone'";
         $stmt = $pdo->prepare($sql);
         if ($stmt->execute()) {
             $result = $stmt->fetchAll();
+            var_dump($result);
+            $ID_personne = $result[0][0];
             $sql = "INSERT INTO `personne_prev`(`ID_personne`, `Num_secu`) VALUES ('$ID_personne','$num_secu')";
+            echo $sql;
             $stmt = $pdo->prepare($sql);
             $stmt->execute();
             $_SESSION['ID_personne'] = $ID_personne;

@@ -18,23 +18,23 @@
         <!-- Tester si l'utilisateur est connecté -->
         <?php
         session_start();
-        if (!isset($_SESSION['username']) || $_SESSION['username'] === null || $_SESSION['username'] == '') {
+        if (!isset ($_SESSION['username']) || $_SESSION['username'] === null || $_SESSION['username'] == '') {
             header('location:../index.php');
         }
         ;
 
         // Connexion à la base de données
-        include_once('connexion.php');
+        include_once ('connexion.php');
         // Requête SQL pour récupérer les données des patients
         $sql = "SELECT * FROM couverture_social";
         $result = $db->query($sql);
 
-        if (!empty($_POST)) {
+        if (!empty ($_POST)) {
             extract($_POST);
             $num_secu = $_SESSION['num_secu'];
 
             // Gestion de l'image
-            if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+            if (isset ($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
                 $image_tmp = $_FILES['image']['tmp_name'];
                 $image_content = file_get_contents($image_tmp);
                 $image_content = mysqli_real_escape_string($db, $image_content);
@@ -69,7 +69,7 @@
             mysqli_query($db, $query);
 
             // Rediriger vers hospitalisation.php après avoir soumis le formulaire
-            echo '<script>window.location.href = "test.php";</script>';
+            echo '<script>window.location.href = "PDFgen.php";</script>';
             exit(); // Assure que la redirection se produit immédiatement
         }
         ?>
